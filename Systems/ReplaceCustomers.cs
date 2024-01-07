@@ -14,7 +14,7 @@ namespace Yipee.Systems
         protected override void Initialise()
         {
             base.Initialise();
-            query = GetEntityQuery(typeof(CRequiresView));
+            query = GetEntityQuery(typeof(CRequiresView), typeof(CCustomer));
         }
 
         protected override void OnUpdate()
