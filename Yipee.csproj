@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net472</TargetFramework>
+		<Configurations>Release;Debug</Configurations>
+		<AssemblyName>$(MSBuildProjectName)-Workshop</AssemblyName>
+		<LangVersion>latest</LangVersion>
+		<NoWarn>CS0114</NoWarn>
+	</PropertyGroup>
+	
+	<PropertyGroup>
+		<AssetBundlePath>$(ProjectDir)UnityProject - Yipee\content\mod.assets</AssetBundlePath>
+	</PropertyGroup>
+	
+	<ItemGroup>
+	  <Compile Remove="content\**" />
+	  <Compile Remove="UnityProject - Yipee\**" />
+	  <EmbeddedResource Remove="content\**" />
+	  <EmbeddedResource Remove="UnityProject - Yipee\**" />
+	  <None Remove="UnityProject - Yipee\**" />
+	</ItemGroup>
+  
+	<ItemGroup>
+		<PackageReference Include="Yariazen.PlateUp.ModBuildUtilities" Version="1.10.21" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Changelogs\" />
+	  <Folder Include="Changelogs\Github" />
+	  <Folder Include="Changelogs\Workshop" />
+	</ItemGroup>
+</Project>
+
