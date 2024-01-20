@@ -2,7 +2,9 @@ using System.Reflection;
 using HarmonyLib;
 using Kitchen;
 using Kitchen.Components;
+using KitchenData;
 using KitchenLib.Utils;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using Yipee.Misc;
@@ -14,6 +16,8 @@ namespace Yipee.Patches
 	{
 		private static GameObject Prefab = null;
 		private static FieldInfo assetDirectory = ReflectionUtils.GetField<LocalViewRouter>("AssetDirectory");
+		private static FieldInfo CustomerNameSubviewTimer = ReflectionUtils.GetField<CustomerNameSubview>("Timer");
+		private static FieldInfo CustomerNameSubviewName = ReflectionUtils.GetField<CustomerNameSubview>("Name");
 		
 		static bool Prefix(LocalViewRouter __instance, ViewType view_type, ref GameObject __result)
 		{
@@ -35,7 +39,12 @@ namespace Yipee.Patches
 				NavMeshAgent navMeshAgent = hoardingBugCustomer.GetComponent<NavMeshAgent>();
 				Rigidbody rigidbody = hoardingBugCustomer.GetComponent<Rigidbody>();
 				Animator animator = hoardingBugCustomer.GetComponentInChildren<Animator>();
+				
 				CustomerView customerView = hoardingBugCustomer.AddComponent<CustomerView>();
+                CustomerNameSubview customerNameSubview = GameObjectUtils.GetChildObject(hoardingBugCustomer, "Name Container").AddComponent<CustomerNameSubview>();
+                CustomerNameSubviewTimer.SetValue(customerNameSubview, 2);
+                CustomerNameSubviewName.SetValue(customerNameSubview, GameObjectUtils.GetChildObject(hoardingBugCustomer, "Name Container/Label").GetComponent<TextMeshPro>());
+                GameObjectUtils.GetChildObject(hoardingBugCustomer, "Name Container/Label").GetComponent<TextMeshPro>().font = GameData.Main.GlobalLocalisation.Fonts[KitchenData.Font.Default];
 
 				FieldInfo customerViewAgent = ReflectionUtils.GetField<CustomerView>("Agent");
 				FieldInfo customerViewRigidbody = ReflectionUtils.GetField<CustomerView>("Rigidbody");
