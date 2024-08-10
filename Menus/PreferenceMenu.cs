@@ -27,6 +27,7 @@ namespace Yipee.Menus
             {
                 Mod.manager.GetPreference<PreferenceBool>("shouldOnlyUseCard").Set(result);
                 ((Unlock)GDOUtils.GetCustomGameDataObject<YipeeCard>().GameDataObject).IsUnlockable = result;
+                Mod.manager.Save();
             };
             New<SpacerElement>(true);
             New<SpacerElement>(true);
